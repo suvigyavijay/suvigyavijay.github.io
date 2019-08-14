@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/prism.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+
+<body class="fluid-container line-numbers language-python">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="navbar-header pull-left">
+            <button type="button" onclick="showPage(this,'about')"
+                class="btn btn-default navbar-btn nav-active">about.me</button>
+            <button type="button" onclick="showPage(this,'work')" class="btn btn-default navbar-btn">work.me</button>
+            <button type="button" onclick="showPage(this,'thoughts')"
+                class="btn btn-default navbar-btn">thoughts.me</button>
+        </div>
+        <div class="navbar-header pull-right d-none d-lg-block">
+            <a class="navbar-brand" href="#">//suvigyavijay.me</a>
+        </div>
+    </nav>
+
+    <div class="loader">
+        <div class="loading-bar">
+            <div class="bar"></div>
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="pages">
+        <div class="page about page-visible">
+            <pre data-src="about.py"></pre>
+        </div>
+        <div class="page work">
+            <pre data-src="work.py"></pre>
+        </div>
+        <div class="page thoughts">
+            <pre data-src="thoughts.py"></pre>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a class="email" target="blank" href="mailto:suvigyavijay@gmail.com"><i class="fa fa-lg fa-envelope" aria-hidden="true"></i></a>
+            <a class="github" target="blank" href="https://github.com/suvigyavijay"><i class="fa fa-lg fa-github-alt" aria-hidden="true"></i></a>
+        </div>
+        <div class="rights">&copy; All Rights Reserved</div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -26,9 +26,17 @@ function hideLoader() {
     $('.loader').addClass('d-none');
 }
 
+function doStuff() {
+    if ($('.pages').text().search('Loading...') != -1) {
+        setTimeout(doStuff, 500);
+        return;
+    }
+    
+    $('.page').map((i, e) => $(e).addClass('d-none'));
+    hideLoader();
+}
+    
 $(window).on('load', function () {
-    setTimeout(() => {
-        $('.page').map((i, e) => $(e).addClass('d-none'));
-        hideLoader();
-    }, 1500);
+    $('.overlay').height($(window).height() - $('.navbar').height() - $('footer').height());
+    setTimeout(doStuff, 1500);
 })

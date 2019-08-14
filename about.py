@@ -5,6 +5,7 @@ Currently, I'm a Data Science Intern at Flipkart in the Planning team.
 
 While I love my work, I'm always curious about tech, anything related to computers, and interested in design. This being said I have tried out multiple domains including graphic designing, web and app development, deployment, and given a shot at numerous software tools.
 '''
+import requests
 
 class SuvigyaVijay:
     def __init__(self):
@@ -32,6 +33,6 @@ class SuvigyaVijay:
         }
 
     def getResume(self):
-        return 'https://suvigyavijay.me/resume.pdf'
+        return requests.get('https://suvigyavijay.me/resume.pdf')
 
 

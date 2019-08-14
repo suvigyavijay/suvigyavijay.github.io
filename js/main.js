@@ -30,5 +30,5 @@ $(window).on('load', function () {
     setTimeout(() => {
         $('.page').map((i, e) => $(e).addClass('d-none'));
         hideLoader();
-    }, 1000);
+    }, 1500);
 })

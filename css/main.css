@@ -6,14 +6,6 @@ html, body {
     color: #ededed
 }
 
-body {
-    overflow: hidden;
-}
-
-.pages {
-    overflow: auto;
-}
-
 .navbar {
     padding: 0;
 }
@@ -25,6 +17,8 @@ body {
 .loader {
     position: absolute;
     z-index: 999;
+    display: flex;
+    flex-direction: column;
 }
 
 .loading-bar {
@@ -73,7 +67,7 @@ body {
 
 .overlay {
     width: 100vw;
-    height: 100vh;
+    flex-grow: 1;
     background: #2d2d2d;
 }
 
@@ -95,7 +89,7 @@ body {
 pre {
     margin: 0 !important;
     white-space:pre-wrap !important;
-    padding-left: 2.8em !important;
+    padding-left: 3.2em !important;
     /* padding: 0 !important; */
 }
 
@@ -107,12 +101,12 @@ pre {
     display: block !important;
 }
 
-a, a:visited, a:link {
+.footer-links > a, .footer-links > a:visited, .footer-links > a:link {
     color: #ededed;
     transition: linear 300ms;
 }
 
-a:hover {
+.footer-links > a:hover {
     color: #2d2d2d;
 }
 

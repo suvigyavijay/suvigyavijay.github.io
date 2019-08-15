@@ -4,9 +4,8 @@ $('.navbar-btn').on('click', function (event) {
     $(this).addClass('nav-active');
 })
 
-function showPage() {
+function showPage(pgId) {
     showLoader(0);
-    let pgId = parseInt($('.nav-active').attr('pgId'));
     $('.pages').html(pages[pgId]);
     Prism.fileHighlight();
 }
@@ -44,6 +43,6 @@ let pages = [
 
 $(window).on('load', function () {
     $('.overlay').height($(window).height() - $('.navbar').height() - $('footer').height());
-    showPage();
+    showPage(0);
     setTimeout(hideLoader, 1500);
 })    

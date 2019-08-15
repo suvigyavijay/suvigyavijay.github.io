@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <title>Suvigya Vijay | Portfolio</title>
     <meta name="keywords" content="Portfolio, Suvigya, Developer" />
-    <meta name="description" content="I'm Suvigya. I'm a developer currently living in Bangalore, India working as a Data Science Intern at Flipkart in the Planning team." />
+    <meta name="description"
+        content="I'm Suvigya. I'm a developer currently living in Bangalore, India working as a Data Science Intern at Flipkart in the Planning team." />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -27,10 +28,11 @@
 <body class="fluid-container line-numbers">
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="navbar-header pull-left">
-            <button type="button" onclick="showPage(this,'about')"
+            <button type="button" onclick="showPage(this,'about')" pgId=0
                 class="btn btn-default navbar-btn nav-active">about.me</button>
-            <button type="button" onclick="showPage(this,'work')" class="btn btn-default navbar-btn">work.me</button>
-            <button type="button" onclick="showPage(this,'thoughts')"
+            <button type="button" onclick="showPage(this,'work')" pgId=1
+                class="btn btn-default navbar-btn">work.me</button>
+            <button type="button" onclick="showPage(this,'thoughts')" pgId=2
                 class="btn btn-default navbar-btn">thoughts.me</button>
         </div>
         <div class="navbar-header pull-right d-none d-lg-block">
@@ -46,21 +48,15 @@
     </div>
 
     <div class="pages">
-        <div class="page about page-visible">
-            <pre data-src="about.py"></pre>
-        </div>
-        <div class="page work">
-            <pre data-src="work.js"></pre>
-        </div>
-        <div class="page thoughts">
-            <pre data-src="thoughts.cpp"></pre>
-        </div>
+
     </div>
 
     <footer>
         <div class="footer-links">
-            <a class="email" target="blank" href="mailto:suvigyavijay@gmail.com"><i class="fa fa-lg fa-envelope" aria-hidden="true"></i></a>
-            <a class="github" target="blank" href="https://github.com/suvigyavijay"><i class="fa fa-lg fa-github-alt" aria-hidden="true"></i></a>
+            <a class="email" target="blank" href="mailto:suvigyavijay@gmail.com"><i class="fa fa-lg fa-envelope"
+                    aria-hidden="true"></i></a>
+            <a class="github" target="blank" href="https://github.com/suvigyavijay"><i class="fa fa-lg fa-github-alt"
+                    aria-hidden="true"></i></a>
         </div>
         <div class="rights">&copy; All Rights Reserved</div>
     </footer>

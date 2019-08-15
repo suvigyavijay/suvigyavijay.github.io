@@ -4,11 +4,11 @@ $('.navbar-btn').on('click', function (event) {
     $(this).addClass('nav-active');
 })
 
-function showPage(ref, className) {
-    // showLoader(0.3);
-    $('.page-visible').removeClass('page-visible');
-    console.log(className);
-    $('.' + className).addClass('page-visible');
+function showPage() {
+    showLoader(0);
+    let pgId = parseInt($('.nav-active').attr('pgId'));
+    $('.pages').html(pages[pgId]);
+    Prism.fileHighlight();
 }
 
 function showLoader() {
@@ -23,20 +23,27 @@ function showLoader(numSecs) {
 }
 
 function hideLoader() {
+    if ($('.pages').text().search('Loading...') != -1) {
+        setTimeout(hideLoader, 500);
+        return;
+    }
     $('.loader').addClass('d-none');
 }
 
-function doStuff() {
-    if ($('.pages').text().search('Loading...') != -1) {
-        setTimeout(doStuff, 500);
-        return;
-    }
-    
-    $('.page').map((i, e) => $(e).addClass('d-none'));
-    hideLoader();
-}
-    
+let pages = [
+    `<div class="page about page-visible">
+        <pre data-src="about.py"></pre>
+    </div>`,
+    `<div class="page work">
+        <pre data-src="work.js"></pre>
+    </div>`,
+    `<div class="page thoughts">
+        <pre data-src="thoughts.cpp"></pre>
+    </div>`
+];
+
 $(window).on('load', function () {
     $('.overlay').height($(window).height() - $('.navbar').height() - $('footer').height());
-    setTimeout(doStuff, 1500);
-})
+    showPage();
+    setTimeout(hideLoader, 1500);
+})    

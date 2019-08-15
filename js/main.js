@@ -4,7 +4,7 @@ $('.navbar-btn').on('click', function (event) {
     $(this).addClass('nav-active');
 })
 
-function showPage(pgId, loaderInterval=0.2) {
+function showPage(pgId, loaderInterval=0) {
     showLoader(loaderInterval);
     $('.pages').html(pages[pgId]);
     Prism.fileHighlight();

@@ -44,5 +44,5 @@ let pages = [
 $(window).on('load', function () {
     $('.overlay').height($(window).height() - $('.navbar').height() - $('footer').height());
     showPage(0);
-    setTimeout(hideLoader, 1500);
+    setTimeout(hideLoader, 2000);
 })    

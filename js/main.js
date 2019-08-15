@@ -4,7 +4,7 @@ $('.navbar-btn').on('click', function (event) {
     $(this).addClass('nav-active');
 })
 
-function showPage(pgId, loaderInterval=0) {
+function showPage(pgId, loaderInterval=0.2) {
     showLoader(loaderInterval);
     $('.pages').html(pages[pgId]);
     Prism.fileHighlight();
@@ -22,11 +22,13 @@ function showLoader(numSecs) {
 }
 
 function hideLoader() {
-    if ($('.pages').text().search('Loading...') != -1) {
+    if ($('.pages').text().search('Loading') != -1) {
         setTimeout(hideLoader, 500);
         return;
     }
-    $('.loader').addClass('d-none');
+    else {
+        $('.loader').addClass('d-none');
+    }
 }
 
 let pages = [
@@ -43,5 +45,5 @@ let pages = [
 
 $(window).on('load', function () {
     $('.overlay').height($(window).height() - $('.navbar').height() - $('footer').height());
-    showPage(0, 3);
+    showPage(0, 2);
 })    

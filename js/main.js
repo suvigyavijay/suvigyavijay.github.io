@@ -18,12 +18,12 @@ function showLoader(numSecs) {
     $('.loader').removeClass('d-none');
     setTimeout(() => {
         hideLoader();
-    }, numSecs*1000);
+    }, numSecs*100);
 }
 
 function hideLoader() {
     if ($('.pages').text().search('Loading') != -1) {
-        setTimeout(hideLoader, 500);
+        setTimeout(hideLoader, 100);
         return;
     }
     else {

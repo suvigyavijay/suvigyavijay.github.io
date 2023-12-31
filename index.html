@@ -1,75 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Suvigya Vijay | Portfolio</title>
-    <meta name="keywords" content="Portfolio, Suvigya, Developer" />
-    <meta name="description"
-        content="I'm Suvigya. I'm a developer currently living in Bangalore, India working as a Data Science Intern at Flipkart in the Planning team." />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="img/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/prism.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145735270-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-145735270-1');
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <title>Suvigya Vijay | Portfolio</title>
+  <meta name="description" content="Software Developer, currently pursuing Masters in Computer Science (Research Track) at University at Buffalo (UB)." />
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="index.html">
+  <meta property="og:title" content="Suvigya Vijay | Portfolio">
+  <meta property="og:description" content="Software Developer, currently pursuing Masters in Computer Science (Research Track) at University at Buffalo (UB).">
+  <meta property="og:image" content="assets/img/meta-banner.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@suvigyavijay" />
+  <meta name="twitter:creator" content="@suvigyavijay" />
+  <meta property="twitter:url" content="index.html">
+  <meta property="twitter:title" content="Suvigya Vijay | Portfolio">
+  <meta property="twitter:description" content="Software Developer, currently pursuing Masters in Computer Science (Research Track) at University at Buffalo (UB).">
+  <meta property="twitter:image" content="assets/img/meta-banner.png">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" sizes="any">
+  <link rel="icon" type="image/png" href="assets/img/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body class="fluid-container line-numbers">
-    <nav class="navbar navbar-dark bg-dark sticky-top">
-        <div class="navbar-header pull-left">
-            <button type="button" onclick="showPage(0)" pgId=0
-                class="btn btn-default navbar-btn nav-active">about.me</button>
-            <button type="button" onclick="showPage(1)" pgId=1
-                class="btn btn-default navbar-btn">work.me</button>
-            <button type="button" onclick="showPage(2)" pgId=2
-                class="btn btn-default navbar-btn">thoughts.me</button>
-        </div>
-        <div class="navbar-header pull-right d-none d-lg-block">
-            <a class="navbar-brand" href="#">//suvigyavijay.me</a>
-        </div>
+<body>
+  <div class="topbar">
+    <div class>
+      <a class="logo" href="index.html"></a>
+    </div>
+    <nav class="main-menu">
+      <a class="nav-item nav-item-home" href="#" onclick="loadContent('home.html')">Home</a>
+      <!-- <a class="nav-item nav-item-about" href="#" onclick="loadContent('about.html')">About</a> -->
+      <a class="nav-item nav-item-projects" href="#" onclick="loadContent('projects.html')">Projects</a>
+      <a class="nav-item nav-item-tools" href="#" onclick="loadContent('blog.html')">Blog</a>
     </nav>
-
-    <div class="loader">
-        <div class="loading-bar">
-            <div class="bar"></div>
-        </div>
-        <div class="overlay"></div>
+  </div>
+  <div class="main-wrapper">
+    <div class="container mx-auto" id="content">
+      <!-- Content will be dynamically loaded here -->
     </div>
+  </div>
 
-    <div class="pages">
-
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <a class="email" target="blank" href="mailto:suvigyavijay@gmail.com"><i class="fa fa-lg fa-envelope"
-                    aria-hidden="true"></i></a>
-            <a class="github" target="blank" href="https://github.com/suvigyavijay"><i class="fa fa-lg fa-github-alt"
-                    aria-hidden="true"></i></a>
-        </div>
-        <div class="rights">&copy; All Rights Reserved</div>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/prism.js"></script>
-    <script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

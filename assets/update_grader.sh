@@ -76,3 +76,7 @@ fi
 
 # exit with success message
 echo "Grader updated successfully!"
+
+# remove itself
+rm update_grader.sh
+

@@ -34,7 +34,7 @@ echo "Downloading new grader files..."
 mkdir -p grader
 wget -q -O grader/grader.cfg https://raw.githubusercontent.com/UB-CSE4589/pa1-starter/main/grader/grader.cfg
 wget -q -O grader/grader_controller https://raw.githubusercontent.com/UB-CSE4589/pa1-starter/main/grader/grader_controller
-
+wget -q -O grader/grader_relay https://raw.githubusercontent.com/UB-CSE4589/pa1-starter/main/grader/grader_relay
 
 # check if the wget was successful
 # if not, exit with error message
@@ -45,6 +45,7 @@ fi
 
 # make the grader file executable
 chmod +x grader/grader_controller
+chmod +x grader/grader_relay
 
 # check if the chmod was successful
 # if not, exit with error message

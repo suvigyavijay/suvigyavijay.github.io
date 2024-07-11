@@ -273,7 +273,6 @@
                     <thead>
                         <tr>
                             <th>Problem</th>
-                            <th>Pattern</th>
                             <th>Difficulty</th>
                             <th>Link</th>
                             <th>Video</th>
@@ -288,7 +287,6 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${problem.id}. ${problem.problem}</td>
-                        <td>${problem.pattern}</td>
                         <td>${problem.difficulty}</td>
                         <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>
                         <td><a href="https://www.youtube.com/watch?v=${problem.video}" target="_blank">Video Link</a></td>

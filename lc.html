@@ -155,78 +155,78 @@
 
     <script>
         let problems = [];
-
+    
         // Load problems data from JSON file
         fetch('assets/neetcode.json')
             .then(response => response.json())
             .then(data => {
                 problems = data;
                 const urlParams = new URLSearchParams(window.location.search);
-                const selectedProblemsParam = urlParams.get('selectedProblems');
-                if (selectedProblemsParam) {
-                    const selectedProblemsId = JSON.parse(atob(selectedProblemsParam));
+                const encodedParams = urlParams.get('data');
+                if (encodedParams) {
+                    const decodedParams = JSON.parse(atob(encodedParams));
+                    const selectedProblemsId = decodedParams.selectedProblems || [];
                     const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
                     displayProblems(selectedProblems);
-                }
-
-                // Restore form states
-                document.getElementById('easyCount').value = urlParams.get('easyCount') || 1;
-                document.getElementById('mediumCount').value = urlParams.get('mediumCount') || 1;
-                document.getElementById('hardCount').value = urlParams.get('hardCount') || 1;
-                document.getElementById('neetcode150').checked = urlParams.get('neetcode150') === 'true';
-
-                const patterns = urlParams.get('patterns') ? urlParams.get('patterns').split(',') : [];
-                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                
-                if (patterns.length === 0) {
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = true;
-                    });
-                } else {
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = patterns.includes(checkbox.value);
-                    });
+    
+                    // Restore form states
+                    document.getElementById('easyCount').value = decodedParams.easyCount || 1;
+                    document.getElementById('mediumCount').value = decodedParams.mediumCount || 1;
+                    document.getElementById('hardCount').value = decodedParams.hardCount || 1;
+                    document.getElementById('neetcode150').checked = decodedParams.neetcode150 === true;
+    
+                    const patterns = decodedParams.patterns || [];
+                    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                    
+                    if (patterns.length === 0) {
+                        checkboxes.forEach(checkbox => {
+                            checkbox.checked = true;
+                        });
+                    } else {
+                        checkboxes.forEach(checkbox => {
+                            checkbox.checked = patterns.includes(checkbox.value);
+                        });
+                    }
                 }
             })
             .catch(error => console.error('Error loading problems:', error));
-
+    
         document.getElementById('problemForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
+    
             const easyCount = parseInt(document.getElementById('easyCount').value);
             const mediumCount = parseInt(document.getElementById('mediumCount').value);
             const hardCount = parseInt(document.getElementById('hardCount').value);
             const neetcode150 = document.getElementById('neetcode150').checked;
             const selectedPatterns = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
-
+    
             const difficultyDistribution = {
                 'Easy': easyCount,
                 'Medium': mediumCount,
                 'Hard': hardCount
             };
-
-            // Declare the selectedProblems variable here
-            let selectedProblems = selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
-
-            // Update URL with form state
-            const params = new URLSearchParams();
-            params.set('easyCount', easyCount);
-            params.set('mediumCount', mediumCount);
-            params.set('hardCount', hardCount);
-            params.set('neetcode150', neetcode150);
-            params.set('patterns', selectedPatterns.join(','));
-
-            const selectedProblemsId = selectedProblems.map(p => p.id);
-            const selectedProblemsParam = btoa(JSON.stringify(selectedProblemsId));
-            params.set('selectedProblems', selectedProblemsParam);
-
-            const newUrl = `${window.location.pathname}?${params.toString()}`;
+    
+            const selectedProblems = selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
+    
+            // Create an object with form state and selected problems
+            const params = {
+                easyCount: easyCount,
+                mediumCount: mediumCount,
+                hardCount: hardCount,
+                neetcode150: neetcode150,
+                patterns: selectedPatterns,
+                selectedProblems: selectedProblems.map(p => p.id)
+            };
+    
+            // Encode the object and update the URL
+            const encodedParams = btoa(JSON.stringify(params));
+            const newUrl = `${window.location.pathname}?data=${encodedParams}`;
             history.replaceState(null, '', newUrl);
         });
-
+    
         function selectProblems(problems, difficultyDistribution, patterns, neetcode150) {
             let selectedProblems = [];
-
+    
             for (const [difficulty, count] of Object.entries(difficultyDistribution)) {
                 const filteredProblems = problems.filter(p => 
                     p.difficulty === difficulty && 
@@ -235,21 +235,20 @@
                 );
                 selectedProblems = selectedProblems.concat(sampleProblems(filteredProblems, count));
             }
-
+    
             displayProblems(selectedProblems);
-            return selectedProblems; // Return the selected problems
+            return selectedProblems;
         }
-
-
+    
         function sampleProblems(problems, count) {
             const shuffled = problems.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, count);
         }
-
+    
         function displayProblems(problems) {
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '';
-
+    
             if (problems.length > 0) {
                 const table = document.createElement('table');
                 table.classList.add('table');
@@ -267,7 +266,7 @@
                     </tbody>
                 `;
                 const tbody = table.querySelector('tbody');
-
+    
                 problems.forEach(problem => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -286,13 +285,13 @@
                     }
                     tbody.appendChild(row);
                 });
-
+    
                 resultDiv.appendChild(table);
             } else {
                 resultDiv.innerHTML = '<p>No problems found matching the criteria.</p>';
             }
         }
-    </script>
+    </script>    
 
 </body>
 </html>

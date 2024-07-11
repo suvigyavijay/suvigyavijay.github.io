@@ -249,11 +249,7 @@
             let selectedProblems = [];
     
             for (const [difficulty, count] of Object.entries(difficultyDistribution)) {
-                const filteredProblems = problems.filter(p => 
-                    p.difficulty === difficulty && 
-                    (patterns.length === 0 || patterns.includes(p.pattern)) &&
-                    (!neetcode150 || (neetcode150 && p.neetcode150))
-                );
+                const filteredProblems = problems.filter(p => p.difficulty === difficulty && (patterns.length === 0 || patterns.includes(p.pattern)) && (!neetcode150 || !p.neetcode150));
                 selectedProblems = selectedProblems.concat(sampleProblems(filteredProblems, count));
             }
     

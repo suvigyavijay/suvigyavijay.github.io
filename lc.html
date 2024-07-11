@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neetcode Random Problems</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .form-check-label {
+            color: #ffffff;
+        }
+        .table {
+            width: 100%;
+            color: #ffffff;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #eee;
+        }
+        th {
+            background-color: #ffa116;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #2c2c2c;
+        }
+        tr:nth-child(odd) {
+            background-color: #1c1c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Neetcode Problem Selector</h1>
+        <form id="problemForm">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="easyCount">Easy</label>
+                    <input type="number" class="form-control" id="easyCount" value="1">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="mediumCount">Medium</label>
+                    <input type="number" class="form-control" id="mediumCount" value="1">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="hardCount">Hard</label>
+                    <input type="number" class="form-control" id="hardCount" value="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Select Patterns</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Arrays & Hashing" id="pattern1" checked>
+                            <label class="form-check-label" for="pattern1">Arrays & Hashing</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Two Pointers" id="pattern2" checked>
+                            <label class="form-check-label" for="pattern2">Two Pointers</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Sliding Window" id="pattern3" checked>
+                            <label class="form-check-label" for="pattern3">Sliding Window</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Stack" id="pattern4" checked>
+                            <label class="form-check-label" for="pattern4">Stack</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Binary Search" id="pattern5" checked>
+                            <label class="form-check-label" for="pattern5">Binary Search</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Linked List" id="pattern6" checked>
+                            <label class="form-check-label" for="pattern6">Linked List</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Trees" id="pattern7" checked>
+                            <label class="form-check-label" for="pattern7">Trees</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Heap / Priority Queue" id="pattern8" checked>
+                            <label class="form-check-label" for="pattern8">Heap / Priority Queue</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Backtracking" id="pattern9" checked>
+                            <label class="form-check-label" for="pattern9">Backtracking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Tries" id="pattern10" checked>
+                            <label class="form-check-label" for="pattern10">Tries</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Graphs" id="pattern11" checked>
+                            <label class="form-check-label" for="pattern11">Graphs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Advanced Graphs" id="pattern12" checked>
+                            <label class="form-check-label" for="pattern12">Advanced Graphs</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1-D Dynamic Programming" id="pattern13" checked>
+                            <label class="form-check-label" for="pattern13">1-D Dynamic Programming</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="2-D Dynamic Programming" id="pattern14" checked>
+                            <label class="form-check-label" for="pattern14">2-D Dynamic Programming</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Greedy" id="pattern15" checked>
+                            <label class="form-check-label" for="pattern15">Greedy</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Intervals" id="pattern16" checked>
+                            <label class="form-check-label" for="pattern16">Intervals</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Math & Geometry" id="pattern17" checked>
+                            <label class="form-check-label" for="pattern17">Math & Geometry</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Bit Manipulation" id="pattern18" checked>
+                            <label class="form-check-label" for="pattern18">Bit Manipulation</label>
+                        </div>
+                        <!-- <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="JavaScript" id="pattern19" checked>
+                            <label class="form-check-label" for="pattern19">JavaScript</label>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+                
+            <button type="submit" class="btn btn-primary">Generate Problem List</button>
+        </form>
+
+        <div id="result" class="mt-5"></div>
+    </div>
+
+    <script>
+        let problems = [];
+
+        // Load problems data from JSON file
+        fetch('assets/neetcode.json')
+            .then(response => response.json())
+            .then(data => {
+                problems = data;
+                const urlParams = new URLSearchParams(window.location.search);
+                const selectedProblemsParam = urlParams.get('selectedProblems');
+                if (selectedProblemsParam) {
+                    const selectedProblems = JSON.parse(atob(selectedProblemsParam));
+                    displayProblems(selectedProblems);
+                }
+            })
+            .catch(error => console.error('Error loading problems:', error));
+
+        document.getElementById('problemForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const easyCount = parseInt(document.getElementById('easyCount').value);
+            const mediumCount = parseInt(document.getElementById('mediumCount').value);
+            const hardCount = parseInt(document.getElementById('hardCount').value);
+            const selectedPatterns = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+
+            const difficultyDistribution = {
+                'Easy': easyCount,
+                'Medium': mediumCount,
+                'Hard': hardCount
+            };
+
+            selectProblems(problems, difficultyDistribution, selectedPatterns);
+        });
+
+        function selectProblems(problems, difficultyDistribution, patterns) {
+            let selectedProblems = [];
+
+            for (const [difficulty, count] of Object.entries(difficultyDistribution)) {
+                const filteredProblems = problems.filter(p => p.difficulty === difficulty && (patterns.length === 0 || patterns.includes(p.pattern)));
+                selectedProblems = selectedProblems.concat(sampleProblems(filteredProblems, count));
+            }
+
+            displayProblems(selectedProblems);
+            const selectedProblemsParam = btoa(JSON.stringify(selectedProblems));
+            const newUrl = `${window.location.pathname}?selectedProblems=${selectedProblemsParam}`;
+            history.replaceState(null, '', newUrl);
+        }
+
+        function sampleProblems(problems, count) {
+            const shuffled = problems.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function displayProblems(problems) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            if (problems.length > 0) {
+                const table = document.createElement('table');
+                table.classList.add('table');
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Difficulty</th>
+                            <th>Link</th>
+                            <th>Video</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                `;
+                const tbody = table.querySelector('tbody');
+
+                problems.forEach(problem => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${problem.problem}</td>
+                        <td>${problem.difficulty}</td>
+                        <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>
+                        <td><a href="https://www.youtube.com/watch?v=${problem.video}" target="_blank">Video Link</a></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                resultDiv.appendChild(table);
+            } else {
+                resultDiv.innerHTML = '<p>No problems found matching the criteria.</p>';
+            }
+        }
+    </script>
+</body>
+</html>

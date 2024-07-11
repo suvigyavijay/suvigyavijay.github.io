@@ -164,7 +164,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const encodedParams = urlParams.get('params');
                 if (encodedParams) {
-                    const decodedParams = decodeParams(encodedParams);
+                    const decodedParams = decodeParams(atob(encodedParams));
                     const selectedProblemsId = decodedParams.selectedProblems;
                     const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
                     displayProblems(selectedProblems);
@@ -223,7 +223,7 @@
                 selectedProblems: selectedProblems.map(p => p.id)
             };
     
-            const encodedParams = encodeParams(params);
+            const encodedParams = btoa(encodeParams(params));
             const newUrl = `${window.location.pathname}?params=${encodedParams}`;
             history.replaceState(null, '', newUrl);
         });
@@ -305,7 +305,7 @@
                 resultDiv.innerHTML = '<p>No problems found matching the criteria.</p>';
             }
         }
-    </script>    
+    </script>
 
 </body>
 </html>

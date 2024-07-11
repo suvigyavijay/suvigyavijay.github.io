@@ -162,8 +162,9 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const selectedProblemsParam = urlParams.get('selectedProblems');
                 if (selectedProblemsParam) {
-                    const selectedProblemIDs = JSON.parse(atob(selectedProblemsParam));
-                    displayProblemsFromIDs(selectedProblemIDs);
+                    const selectedProblemsId = JSON.parse(atob(selectedProblemsParam));
+                    const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
+                    displayProblems(selectedProblems);
                 }
             })
             .catch(error => console.error('Error loading problems:', error));
@@ -195,7 +196,6 @@
             }
 
             displayProblems(selectedProblems);
-            // Update URL with selected problems id
             const selectedProblemsId = selectedProblems.map(p => p.id);
             const selectedProblemsParam = btoa(JSON.stringify(selectedProblemsId));
             const newUrl = `${window.location.pathname}?selectedProblems=${selectedProblemsParam}`;
@@ -205,11 +205,6 @@
         function sampleProblems(problems, count) {
             const shuffled = problems.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, count);
-        }
-
-        function displayProblemsFromIDs(problemIDs) {
-            const selectedProblems = problems.filter(p => problemIDs.includes(p.id));
-            displayProblems(selectedProblems);
         }
 
         function displayProblems(problems) {

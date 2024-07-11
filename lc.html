@@ -288,9 +288,17 @@
                     row.innerHTML = `
                         <td>${problem.id}. ${problem.problem}</td>
                         <td>${problem.difficulty}</td>
-                        <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>
+                        <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>`;
+                    // if problem.video contains 'https://www.youtube.com/watch?v=', then display 'Video Link' in the table
+                    if (problem.video.includes('https://www.youtube.com/')) {
+                        row.innerHTML += `
+                        <td><a href="${problem.video}" target="_blank">Video Link</a></td>
+                        `;
+                    } else {
+                        row.innerHTML += `
                         <td><a href="https://www.youtube.com/watch?v=${problem.video}" target="_blank">Video Link</a></td>
-                    `;
+                        `;
+                    }
                     tbody.appendChild(row);
                 });
     

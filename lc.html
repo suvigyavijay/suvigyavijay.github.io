@@ -168,6 +168,20 @@
                     const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
                     displayProblems(selectedProblems);
                 }
+                // Restore form states
+                document.getElementById('easyCount').value = urlParams.get('easyCount') || 1;
+                document.getElementById('mediumCount').value = urlParams.get('mediumCount') || 1;
+                document.getElementById('hardCount').value = urlParams.get('hardCount') || 1;
+                document.getElementById('neetcode150').checked = urlParams.get('neetcode150') === 'true';
+
+                const patterns = urlParams.get('patterns') ? urlParams.get('patterns').split(',') : [];
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    if (patterns.includes(checkbox.value)) {
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.checked = false;
+                    }
+                });
             })
             .catch(error => console.error('Error loading problems:', error));
 
@@ -187,21 +201,36 @@
             };
 
             selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
+
+            // Update URL with form state
+            const params = new URLSearchParams();
+            params.set('easyCount', easyCount);
+            params.set('mediumCount', mediumCount);
+            params.set('hardCount', hardCount);
+            params.set('neetcode150', neetcode150);
+            params.set('patterns', selectedPatterns.join(','));
+
+            const selectedProblemsId = selectedProblems.map(p => p.id);
+            const selectedProblemsParam = btoa(JSON.stringify(selectedProblemsId));
+            params.set('selectedProblems', selectedProblemsParam);
+
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            history.replaceState(null, '', newUrl);
         });
 
         function selectProblems(problems, difficultyDistribution, patterns, neetcode150) {
             let selectedProblems = [];
 
             for (const [difficulty, count] of Object.entries(difficultyDistribution)) {
-                const filteredProblems = problems.filter(p => p.difficulty === difficulty && (patterns.length === 0 || patterns.includes(p.pattern)) && (!neetcode150 || !p.neetcode150));
+                const filteredProblems = problems.filter(p => 
+                    p.difficulty === difficulty && 
+                    (patterns.length === 0 || patterns.includes(p.pattern)) &&
+                    (!neetcode150 || (neetcode150 && p.neetcode150))
+                );
                 selectedProblems = selectedProblems.concat(sampleProblems(filteredProblems, count));
             }
 
             displayProblems(selectedProblems);
-            const selectedProblemsId = selectedProblems.map(p => p.id);
-            const selectedProblemsParam = btoa(JSON.stringify(selectedProblemsId));
-            const newUrl = `${window.location.pathname}?selectedProblems=${selectedProblemsParam}`;
-            history.replaceState(null, '', newUrl);
         }
 
         function sampleProblems(problems, count) {
@@ -220,6 +249,7 @@
                     <thead>
                         <tr>
                             <th>Problem</th>
+                            <th>Pattern</th>
                             <th>Difficulty</th>
                             <th>Link</th>
                             <th>Video</th>
@@ -234,9 +264,9 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${problem.id}. ${problem.problem}</td>
+                        <td>${problem.pattern}</td>
                         <td>${problem.difficulty}</td>
                         <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>`;
-                    // if problem.video contains 'https://www.youtube.com/watch?v=', then display 'Video Link' in the table
                     if (problem.video.includes('https://www.youtube.com/')) {
                         row.innerHTML += `
                         <td><a href="${problem.video}" target="_blank">Video Link</a></td>

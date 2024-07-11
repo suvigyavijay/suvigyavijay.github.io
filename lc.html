@@ -168,6 +168,7 @@
                     const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
                     displayProblems(selectedProblems);
                 }
+
                 // Restore form states
                 document.getElementById('easyCount').value = urlParams.get('easyCount') || 1;
                 document.getElementById('mediumCount').value = urlParams.get('mediumCount') || 1;
@@ -175,13 +176,17 @@
                 document.getElementById('neetcode150').checked = urlParams.get('neetcode150') === 'true';
 
                 const patterns = urlParams.get('patterns') ? urlParams.get('patterns').split(',') : [];
-                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                    if (patterns.includes(checkbox.value)) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                
+                if (patterns.length === 0) {
+                    checkboxes.forEach(checkbox => {
                         checkbox.checked = true;
-                    } else {
-                        checkbox.checked = false;
-                    }
-                });
+                    });
+                } else {
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = patterns.includes(checkbox.value);
+                    });
+                }
             })
             .catch(error => console.error('Error loading problems:', error));
 
@@ -200,7 +205,8 @@
                 'Hard': hardCount
             };
 
-            selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
+            // Declare the selectedProblems variable here
+            let selectedProblems = selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
 
             // Update URL with form state
             const params = new URLSearchParams();
@@ -231,7 +237,9 @@
             }
 
             displayProblems(selectedProblems);
+            return selectedProblems; // Return the selected problems
         }
+
 
         function sampleProblems(problems, count) {
             const shuffled = problems.sort(() => 0.5 - Math.random());

@@ -37,7 +37,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Neetcode Problem Selector</h1>
+        <h1 class="mb-4">Neetcode Problem Randomizer</h1>
         <form id="problemForm">
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -52,6 +52,10 @@
                     <label for="hardCount">Hard</label>
                     <input type="number" class="form-control" id="hardCount" value="1">
                 </div>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="neetcode150" checked>
+                <label class="form-check-label" for="neetcode150">Exclude Neetcode150 Problems Only</label>
             </div>
             <div class="form-group">
                 <label>Select Patterns</label>
@@ -158,8 +162,8 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const selectedProblemsParam = urlParams.get('selectedProblems');
                 if (selectedProblemsParam) {
-                    const selectedProblems = JSON.parse(atob(selectedProblemsParam));
-                    displayProblems(selectedProblems);
+                    const selectedProblemIDs = JSON.parse(atob(selectedProblemsParam));
+                    displayProblemsFromIDs(selectedProblemIDs);
                 }
             })
             .catch(error => console.error('Error loading problems:', error));
@@ -170,6 +174,7 @@
             const easyCount = parseInt(document.getElementById('easyCount').value);
             const mediumCount = parseInt(document.getElementById('mediumCount').value);
             const hardCount = parseInt(document.getElementById('hardCount').value);
+            const neetcode150 = document.getElementById('neetcode150').checked;
             const selectedPatterns = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
 
             const difficultyDistribution = {
@@ -178,19 +183,21 @@
                 'Hard': hardCount
             };
 
-            selectProblems(problems, difficultyDistribution, selectedPatterns);
+            selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
         });
 
-        function selectProblems(problems, difficultyDistribution, patterns) {
+        function selectProblems(problems, difficultyDistribution, patterns, neetcode150) {
             let selectedProblems = [];
 
             for (const [difficulty, count] of Object.entries(difficultyDistribution)) {
-                const filteredProblems = problems.filter(p => p.difficulty === difficulty && (patterns.length === 0 || patterns.includes(p.pattern)));
+                const filteredProblems = problems.filter(p => p.difficulty === difficulty && (patterns.length === 0 || patterns.includes(p.pattern)) && (!neetcode150 || !p.neetcode150));
                 selectedProblems = selectedProblems.concat(sampleProblems(filteredProblems, count));
             }
 
             displayProblems(selectedProblems);
-            const selectedProblemsParam = btoa(JSON.stringify(selectedProblems));
+            // Update URL with selected problems id
+            const selectedProblemsId = selectedProblems.map(p => p.id);
+            const selectedProblemsParam = btoa(JSON.stringify(selectedProblemsId));
             const newUrl = `${window.location.pathname}?selectedProblems=${selectedProblemsParam}`;
             history.replaceState(null, '', newUrl);
         }
@@ -198,6 +205,11 @@
         function sampleProblems(problems, count) {
             const shuffled = problems.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, count);
+        }
+
+        function displayProblemsFromIDs(problemIDs) {
+            const selectedProblems = problems.filter(p => problemIDs.includes(p.id));
+            displayProblems(selectedProblems);
         }
 
         function displayProblems(problems) {
@@ -224,7 +236,7 @@
                 problems.forEach(problem => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${problem.problem}</td>
+                        <td>${problem.id}. ${problem.problem}</td>
                         <td>${problem.difficulty}</td>
                         <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>
                         <td><a href="https://www.youtube.com/watch?v=${problem.video}" target="_blank">Video Link</a></td>
@@ -238,5 +250,6 @@
             }
         }
     </script>
+
 </body>
 </html>

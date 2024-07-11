@@ -162,10 +162,10 @@
             .then(data => {
                 problems = data;
                 const urlParams = new URLSearchParams(window.location.search);
-                const encodedParams = urlParams.get('data');
+                const encodedParams = urlParams.get('params');
                 if (encodedParams) {
-                    const decodedParams = JSON.parse(atob(encodedParams));
-                    const selectedProblemsId = decodedParams.selectedProblems || [];
+                    const decodedParams = decodeParams(encodedParams);
+                    const selectedProblemsId = decodedParams.selectedProblems;
                     const selectedProblems = selectedProblemsId.map(id => problems.find(p => p.id === id));
                     displayProblems(selectedProblems);
     
@@ -173,7 +173,7 @@
                     document.getElementById('easyCount').value = decodedParams.easyCount || 1;
                     document.getElementById('mediumCount').value = decodedParams.mediumCount || 1;
                     document.getElementById('hardCount').value = decodedParams.hardCount || 1;
-                    document.getElementById('neetcode150').checked = decodedParams.neetcode150 === true;
+                    document.getElementById('neetcode150').checked = decodedParams.neetcode150;
     
                     const patterns = decodedParams.patterns || [];
                     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -187,6 +187,11 @@
                             checkbox.checked = patterns.includes(checkbox.value);
                         });
                     }
+                } else {
+                    // Select all checkboxes by default if no params are provided
+                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.checked = true;
+                    });
                 }
             })
             .catch(error => console.error('Error loading problems:', error));
@@ -197,7 +202,7 @@
             const easyCount = parseInt(document.getElementById('easyCount').value);
             const mediumCount = parseInt(document.getElementById('mediumCount').value);
             const hardCount = parseInt(document.getElementById('hardCount').value);
-            const neetcode150 = document.getElementById('neetcode150').checked;
+            const neetcode150 = document.getElementById('neetcode150').checked ? 1 : 0;
             const selectedPatterns = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
     
             const difficultyDistribution = {
@@ -208,21 +213,37 @@
     
             const selectedProblems = selectProblems(problems, difficultyDistribution, selectedPatterns, neetcode150);
     
-            // Create an object with form state and selected problems
+            // Update URL with form state
             const params = {
-                easyCount: easyCount,
-                mediumCount: mediumCount,
-                hardCount: hardCount,
-                neetcode150: neetcode150,
+                easyCount,
+                mediumCount,
+                hardCount,
+                neetcode150,
                 patterns: selectedPatterns,
                 selectedProblems: selectedProblems.map(p => p.id)
             };
     
-            // Encode the object and update the URL
-            const encodedParams = btoa(JSON.stringify(params));
-            const newUrl = `${window.location.pathname}?data=${encodedParams}`;
+            const encodedParams = encodeParams(params);
+            const newUrl = `${window.location.pathname}?params=${encodedParams}`;
             history.replaceState(null, '', newUrl);
         });
+    
+        function encodeParams(params) {
+            const patternIndices = Array.from(document.querySelectorAll('input[type="checkbox"]')).map((checkbox, index) => checkbox.checked ? index + 1 : null).filter(index => index !== null).join(',');
+            return `e=${params.easyCount}&m=${params.mediumCount}&h=${params.hardCount}&n=${params.neetcode150}&p=${patternIndices}&s=${params.selectedProblems.join(',')}`;
+        }
+    
+        function decodeParams(encodedParams) {
+            const params = new URLSearchParams(encodedParams);
+            return {
+                easyCount: parseInt(params.get('e')),
+                mediumCount: parseInt(params.get('m')),
+                hardCount: parseInt(params.get('h')),
+                neetcode150: params.get('n') === '1',
+                patterns: params.get('p').split(',').map(index => document.querySelectorAll('input[type="checkbox"]')[index - 1].value),
+                selectedProblems: params.get('s').split(',').map(id => parseInt(id))
+            };
+        }
     
         function selectProblems(problems, difficultyDistribution, patterns, neetcode150) {
             let selectedProblems = [];
@@ -237,7 +258,7 @@
             }
     
             displayProblems(selectedProblems);
-            return selectedProblems;
+            return selectedProblems; // Return the selected problems
         }
     
         function sampleProblems(problems, count) {
@@ -273,16 +294,9 @@
                         <td>${problem.id}. ${problem.problem}</td>
                         <td>${problem.pattern}</td>
                         <td>${problem.difficulty}</td>
-                        <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>`;
-                    if (problem.video.includes('https://www.youtube.com/')) {
-                        row.innerHTML += `
-                        <td><a href="${problem.video}" target="_blank">Video Link</a></td>
-                        `;
-                    } else {
-                        row.innerHTML += `
+                        <td><a href="https://leetcode.com/problems/${problem.link}" target="_blank">Problem Link</a></td>
                         <td><a href="https://www.youtube.com/watch?v=${problem.video}" target="_blank">Video Link</a></td>
-                        `;
-                    }
+                    `;
                     tbody.appendChild(row);
                 });
     
